@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-900 text-white">
+  <div class="text-center">
+    <div id="clock" class="text-6xl font-mono shadow-lg p-4 bg-gray-800 rounded-lg"></div>
+    <div id="date" class="text-xl mt-2"></div>
+  </div>
+
+  <script>
+    function updateClock() {
+      let now = new Date();
+      document.getElementById("clock").innerText = now.toLocaleTimeString();
+      document.getElementById("date").innerText = now.toDateString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

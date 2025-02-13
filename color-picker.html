@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col items-center justify-center h-screen">
+  <input type="color" id="colorPicker" class="">
+  
+  <script>
+    document.getElementById("colorPicker").addEventListener("input", function() {
+      document.body.style.backgroundColor = this.value;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col items-center justify-center h-screen bg-gray-200">
+  <img id="sliderImg" class="w-[700px] h-[400px] rounded-lg shadow-lg" src="https://via.placeholder.com/200">
+  <div class="mt-4 space-x-4">
+    <button onclick="prevImage()" class="px-4 py-2 bg-blue-500 text-white rounded">Prev</button>
+    <button onclick="nextImage()" class="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
+  </div>
+
+  <script>
+const images = [
+  "https://www.w3schools.com/w3images/fjords.jpg", // Fjords
+  "https://www.w3schools.com/w3images/mountains.jpg", // Mountains
+  "https://www.w3schools.com/w3images/lights.jpg", // City lights
+  "https://www.w3schools.com/w3images/forest.jpg", // Forest
+  "https://www.w3schools.com/w3images/snow.jpg", // Snowy landscape
+  "https://www.w3schools.com/w3images/nature.jpg", // Nature
+  "https://www.w3schools.com/w3images/rock.jpg", // Rock landscape
+  "https://www.w3schools.com/w3images/trees.jpg"  // Trees
+];
+
+
+
+    let index = 0;
+
+    function showImage() {
+      document.getElementById("sliderImg").src = images[index];
+    }
+
+    function prevImage() { index = (index - 1 + images.length) % images.length; showImage(); }
+    function nextImage() { index = (index + 1) % images.length; showImage(); }
+  </script>
+</body>
+</html>
