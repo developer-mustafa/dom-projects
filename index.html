@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/progressbar.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Countdown Timer</title>
+  <style>
+    .circle-container {
+      position: relative;
+      width: 130px;
+      height: 130px;
+    }
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: white;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+  <div class="text-center space-y-6">
+    <h1 class="text-lg md:text-xl font-medium text-yellow-400">
+      কোর্স এনরোলমেন্ট শুরু হতে
+    </h1>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Days -->
+      <div class="space-y-4">
+        <div class="circle-container">
+          <div id="days-container"></div>
+          <span id="days-text" class="progress-text">0</span>
+        </div>
+        <p class="text-cyan-400">Days</p>
+      </div>
+      <!-- Hours -->
+      <div class="space-y-4">
+        <div class="circle-container">
+          <div id="hours-container"></div>
+          <span id="hours-text" class="progress-text">0</span>
+        </div>
+        <p class="text-pink-400">Hours</p>
+      </div>
+      <!-- Minutes -->
+      <div class="space-y-4">
+        <div class="circle-container">
+          <div id="minutes-container"></div>
+          <span id="minutes-text" class="progress-text">0</span>
+        </div>
+        <p class="text-yellow-400">Minutes</p>
+      </div>
+      <!-- Seconds -->
+      <div class="space-y-4">
+        <div class="circle-container">
+          <div id="seconds-container"></div>
+          <span id="seconds-text" class="progress-text">0</span>
+        </div>
+        <p class="text-green-400">Seconds</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // কাউন্টডাউন সময় সেট করুন
+    const countdownDate = new Date("Feb 26, 2025 12:00:00").getTime();
+
+    // ProgressBar.js দিয়ে সার্কুলার টাইমার তৈরি
+    const createProgressBar = (container, color) => {
+      return new ProgressBar.Circle(container, {
+        strokeWidth: 6,
+        color: color,
+        trailColor: '#1e293b',
+        trailWidth: 6,
+        duration: 1000,
+        easing: 'easeInOut',
+      });
+    };
+
+    // সার্কুলার টাইমার তৈরি করা
+    const daysBar = createProgressBar('#days-container', '#06b6d4');
+    const hoursBar = createProgressBar('#hours-container', '#ec4899');
+    const minutesBar = createProgressBar('#minutes-container', '#facc15');
+    const secondsBar = createProgressBar('#seconds-container', '#10b981');
+
+    // কাউন্টডাউন আপডেট ফাংশন
+    const countdownFunction = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      // সময় ক্যালকুলেশন
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // প্রোগ্রেস বার আপডেট
+      daysBar.animate(days / 30);
+      hoursBar.animate(hours / 24);
+      minutesBar.animate(minutes / 60);
+      secondsBar.animate(seconds / 60);
+
+      // সংখ্যা আপডেট
+      document.getElementById('days-text').textContent = days;
+      document.getElementById('hours-text').textContent = hours;
+      document.getElementById('minutes-text').textContent = minutes;
+      document.getElementById('seconds-text').textContent = seconds;
+
+      // সময় শেষ হলে কাউন্টডাউন বন্ধ
+      if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.querySelector("body").innerHTML = `
+          <h1 class="text-4xl font-bold text-red-400 text-center">
+            কোর্স এনরোলমেন্ট শুরু হয়েছে!
+          </h1>
+        `;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
