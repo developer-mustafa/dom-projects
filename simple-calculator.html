@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #160428;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #d8aef7;
+            overflow: hidden;
+            
+        }
+        .calculator-screen {
+            width: 100%;
+            border: none;
+            background: #090303;
+            color: white;
+          
+            padding: 20px;
+           
+            font-size: 2.5em;
+        }
+        .calculator-keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+        }
+        .key {
+            height: 80px;
+            border: none;
+            background: #e0e0e0;
+            font-size: 1.5em;
+        }
+        .key.operator {
+            background: #f9a825;
+        }
+        .key:active {
+            background: #d6caca;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="calculator">
+            <input type="text" placeholder="0" class="calculator-screen" id="calculator-screen" disabled />
+            <div class="calculator-keys">
+                <button class="key" value="7">7</button>
+                <button class="key" value="8">8</button>
+                <button class="key" value="9">9</button>
+                <button class="key operator" value="/">÷</button>
+                <button class="key" value="4">4</button>
+                <button class="key" value="5">5</button>
+                <button class="key" value="6">6</button>
+                <button class="key operator" value="*">×</button>
+                <button class="key" value="1">1</button>
+                <button class="key" value="2">2</button>
+                <button class="key" value="3">3</button>
+                <button class="key operator" value="-">−</button>
+                <button class="key" value="0">0</button>
+                <button class="key" value=".">.</button>
+                <button class="key" value="C">C</button>
+                <button class="key operator" value="+">+</button>
+                <button class="key" value="=">=</button>
+            </div>
+        </div>
+    </div>
+  
+    <script>
+        const calculatorScreen = document.getElementById('calculator-screen');
+        const keys = document.querySelectorAll('.key');
+        keys.forEach(key => {
+            key.addEventListener('click', () => {
+                const value = key.value;
+                if (value === '=') {
+                    try {
+                        calculatorScreen.value = eval(calculatorScreen.value);
+                    } catch {
+                        calculatorScreen.value = 'Error';
+                    }
+                } else if (value === 'C') {
+                    calculatorScreen.value = '';
+                } else {
+                    calculatorScreen.value += value;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
